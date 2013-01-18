@@ -8,4 +8,7 @@ require_relative 'helpers/service'
 
 RSpec.configure do |c|
   c.include ServiceHelper 
+  c.after(:each) do
+    FakeWeb.clean_registry
+  end
 end
