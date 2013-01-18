@@ -1,0 +1,18 @@
+#!/usr/bin/env ruby
+#
+require 'optparse'
+$:.unshift File.expand_path('../../lib', __FILE__)
+opts = {}
+OptionParser.new do |o|
+  o.banner = "Jaxx file distributor: jaxx [options]"
+
+  o.on('-b', '--bucket BUCKET')                   { |b| opts['bucket'] = b }
+  o.on('-k', '--access-key [ACCESS_KEY]')         { |k| opts['access_key'] = k }
+  o.on('-s', '--access-secret [ACCESS_SECRET]')   { |s| opts['access_secret'] = s }
+  o.on('-f', '--file FILE')                       { |f| opts['file'] = f }
+  o.on('-p', '--privacy [PRIVACY]')               { |p| opts['privacy'] = p }
+  o.on('-h', '--help')                            { puts o; exit }
+end.parse!
+
+require 'jaxx'
+Jaxx.save(opts)
