@@ -4,9 +4,9 @@ require File.expand_path('../lib/jaxx/version', __FILE__)
 Gem::Specification.new do |gem|
   gem.authors       = ["Marc Watts"]
   gem.email         = ["marcky.sharky@googlemail.com"]
-  gem.description   = %q{TODO: Write a gem description}
-  gem.summary       = %q{TODO: Write a gem summary}
-  gem.homepage      = ""
+  gem.description   = %q{Command line wrapper for pushing files to S3}
+  gem.summary       = %q{RubyGems to allow any file to be pushed to S3 in the simplist way}
+  gem.homepage      = "https://github.com/marckysharky/jaxx"
 
   gem.files         = `git ls-files`.split($\)
   gem.executables   = gem.files.grep(%r{^bin/}).map{ |f| File.basename(f) }
@@ -16,6 +16,7 @@ Gem::Specification.new do |gem|
   gem.version       = Jaxx::VERSION
 
   gem.add_dependency 'fog'
+  gem.add_development_dependency  'rake'
   gem.add_development_dependency 'guard'
   gem.add_development_dependency 'guard-rspec'
   gem.add_development_dependency 'rspec'
