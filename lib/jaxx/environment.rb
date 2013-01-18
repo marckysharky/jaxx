@@ -9,7 +9,7 @@ module Jaxx
     DEFAULT_ARGS = {
       'service_domain'  => '169.254.169.254',
       'service_path'    => '/latest/meta-data/iam/security-credentials/default',
-      'service_timeout' => 1
+      'service_timeout' => 5
     }
 
     attr_reader :service_domain, :service_path, :service_timeout
@@ -19,17 +19,18 @@ module Jaxx
     end
     
     def ami?
-      timeout(service_timeout) { TCPSocket.new(service_domain, 'echo').close }
-    rescue Errno::ECONNREFUSED
-      true
-    rescue Timeout::Error, StandardError
-      false
+      credentials[:code] == 'Success' 
     end
 
     def credentials
-      return nil unless ami?
-      resp = Net::HTTP.get service_domain, service_path
-      JSON.parse(resp)
+      return @credentials unless @credentials.nil?
+      
+      http = Net::HTTP.new service_domain
+      http.open_timeout = http.read_timeout = service_timeout
+      resp = JSON.parse http.get(service_path).body
+      @credentials = { :access_key => resp['AccessKeyId'], :access_secret => resp['SecretAccessKey'], :code => resp['Code'] }
+    rescue Errno::EHOSTDOWN, Errno::EHOSTUNREACH, Timeout::Error
+      @credentials = { :access_key => nil, :access_secret => nil, :code => 'Failure' }
     end
   end
 end

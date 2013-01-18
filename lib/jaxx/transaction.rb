@@ -29,9 +29,9 @@ module Jaxx
 
       key, secret = access_key.to_s, access_secret.to_s
       if Jaxx.environment.ami? and (key.empty? or secret.empty?)
-        creds = Jaxx.environment.credentials
-        key    ||= creds['AccessKeyId']
-        secret ||= creds['SecretAccessKey']
+        creds  = Jaxx.environment.credentials
+        key    ||= creds[:access_key]
+        secret ||= creds[:access_secret]
       end
       @credentials = { access_key: key, access_secret: secret }
     end

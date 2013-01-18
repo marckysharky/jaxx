@@ -22,7 +22,8 @@ module Jaxx
       end
 
       it "#credentials" do
-        subject.credentials.should be_nil
+        subject.credentials.should be_kind_of(Hash)
+        subject.credentials[:code].should eq 'Failure'
       end
     end
 
