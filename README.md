@@ -1,6 +1,6 @@
 # Jaxx
 
-TODO: Write a gem description
+Upload and Download files from S3.
 
 ## Installation
 
