@@ -56,12 +56,12 @@ Or install it yourself as:
   jaxx-download -b test-bucket -f vapour.txt -k MY_KEY -s MY_SECRET
 ```
 
-### Upload to S3
+### Upload to S3 from AWS Instance
 ```
   jaxx-upload -b test-bucket -f vapour.txt
 ```
 
-### Download from S3 to current folder
+### Download from S3 to current folder from AWS Instance
 ```
   jaxx-download -b test-bucket -f vapour.txt
 ```
