@@ -44,6 +44,33 @@ Or install it yourself as:
     -h, --help
 ```
 
+## Examples
+
+### Upload from local machine
+```
+  jaxx-upload -b test-bucket -f vapour.txt -k MY_KEY -s MY_SECRET
+```
+
+### Download to local machine
+```
+  jaxx-download -b test-bucket -f vapour.txt -k MY_KEY -s MY_SECRET
+```
+
+### Upload to S3
+```
+  jaxx-upload -b test-bucket -f vapour.txt
+```
+
+### Download from S3 to current folder
+```
+  jaxx-download -b test-bucket -f vapour.txt
+```
+
+### Upload from local machine, and make it publicly available
+```
+  jaxx-upload -b test-bucket -f vapour.txt -k MY_KEY -s MY_SECRET -p public
+```
+
 ## Contributing
 
 1. Fork it
