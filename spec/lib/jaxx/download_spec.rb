@@ -1,0 +1,24 @@
+require 'spec_helper'
+require 'fog/aws/models/storage/directories'
+
+module Jaxx
+  describe Download do
+
+    describe "#process" do
+      let(:args) { ({ 'access_key' => 'foo', 'access_secret' => 'bar', 'file' => File.expand_path('bar.txt', __FILE__), 'bucket' => 'temp' }) }
+
+      subject { described_class.new(args) }
+
+      it "sends file to storage" do
+        Fog.mock!
+        
+        directory = double('directory', :files => double('files'))
+        directory.files.should_receive(:get).with(args['file'])
+        Fog::Storage::AWS::Directories.any_instance.stub(:get).with(args['bucket']).and_return(directory)
+
+        subject.execute
+      end
+    end
+
+  end
+end

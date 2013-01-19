@@ -1,15 +1,19 @@
 require 'spec_helper'
 
 describe Jaxx do
+  
+  it ".upload" do
+    upload = double 'upload'
+    Jaxx::Upload.should_receive(:new).and_return(upload)
+    upload.should_receive(:execute)
+    Jaxx.upload
+  end
 
-  describe ".save" do
- 
-    it "creates a new transaction" do
-      trans = double 'trans', :process => true
-      Jaxx::Transaction.should_receive(:new).and_return(trans)
-      Jaxx.save
-    end
-
+  it ".upload" do
+    download = double 'download'
+    Jaxx::Download.should_receive(:new).and_return(download)
+    download.should_receive(:execute)
+    Jaxx.download
   end
 
   describe ".environment" do

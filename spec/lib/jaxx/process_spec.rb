@@ -2,10 +2,10 @@ require 'spec_helper'
 require 'fog/aws/models/storage/directory'
 
 module Jaxx
-  describe Transaction do
+  describe Process do
 
     it "raises RuntimeError on invalid process" do
-      -> { described_class.new.process }.should raise_error(RuntimeError)
+      -> { described_class.new.start }.should raise_error(RuntimeError)
     end
 
     it "accepts bucket" do
@@ -32,31 +32,39 @@ module Jaxx
     end
 
     context "passing a file path" do
-      
+      let(:file) { nil }
+
+      subject { described_class.new('file' => file) }
+
       it "raises error on missing file" do
-        described_class.new.errors.should include(:file => "given cannot be processed")
+        subject.errors.should include(:file_presence => "is required")
       end
 
       it "includes error when file does not exist" do
         file = "foo"
-        described_class.new('file' => file).errors.should include(:file => "given cannot be processed")
+        subject.errors.should include(:file_presence => "is required")
       end
 
       it "includes error when path is empty" do
-        described_class.new('file' => "").errors.should include(:file => "given cannot be processed")
+        file = ""
+        subject.errors.should include(:file_presence => "is required")
       end
     end
 
-    it "accepts privacy level" do
-      described_class.new('privacy' => 'private').privacy.should == 'private'
-    end
+    describe "privacy" do
 
-    it "defaults privacy level to private" do
-      described_class.new.privacy.should == 'private'
-    end
+      it "accepts privacy level" do
+        described_class.new('privacy' => 'public', 'validations' => [:privacy]).privacy.should == 'public'
+      end
 
-    it "raises error on invalid privacy level" do
-      described_class.new('privacy' => 'foo').errors.should include(:privacy => "foo is not supported")
+      it "defaults privacy level to private" do
+        described_class.new('validations' => [:privacy]).privacy.should == 'private'
+      end
+
+      it "raises error on invalid privacy level" do
+        described_class.new('privacy' => 'foo', 'validations' => [:privacy]).errors.should include(:privacy => "foo is not supported")
+      end
+
     end
 
     context "non-ami environment" do
@@ -85,20 +93,5 @@ module Jaxx
       end
     end
 
-    describe "#process" do
-      let(:args) { ({ 'access_key' => 'foo', 'access_secret' => 'bar', 'file' => File.expand_path('bar.txt', __FILE__), 'bucket' => 'temp' }) }
-      
-      subject { described_class.new(args) }
-      
-      it "sends file to storage" do
-        Fog.mock!
-         
-        File.stub(:exist?).with(args['file']).and_return(true)
-        File.should_receive(:read).with(args['file']).and_return("")
-        File.should_receive(:basename).with(args['file']).and_return('bar.txt')
-
-        subject.process
-      end
-    end
   end
 end

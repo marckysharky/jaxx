@@ -1,3 +1,5 @@
+require 'fakeweb'
+
 module ServiceHelper
 
   def stub_credentials_service
