@@ -18,7 +18,31 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+### Upload
+```
+  jaxx-upload -h
+  jaxx [options]
+    -b, --bucket [BUCKET]
+    -k, --access-key [ACCESS_KEY]
+    -s [ACCESS_SECRET],
+    --access-secret
+    -f, --file [FILE]
+    -p, --privacy [PRIVACY]
+    -h, --help
+```
+
+### Download
+```
+  jaxx-download -h
+  jaxx [options]
+    -b, --bucket [BUCKET]
+    -k, --access-key [ACCESS_KEY]
+    -s [ACCESS_SECRET],
+    --access-secret
+    -f, --file [FILE]
+    -p, --privacy [PRIVACY]
+    -h, --help
+```
 
 ## Contributing
 

@@ -20,7 +20,7 @@ module Jaxx
         o.on('-s', '--access-secret [ACCESS_SECRET]')   { |s| options['access_secret'] = s }
         o.on('-f', '--file [FILE]')                     { |f| options['file'] = f }
         o.on('-p', '--privacy [PRIVACY]')               { |p| options['privacy'] = p }
-        o.on('-h', '--help')                            { puts o }
+        o.on('-h', '--help')                            { o }
       end
     end
 
