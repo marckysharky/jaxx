@@ -20,7 +20,7 @@ module Jaxx
 
   def self.logger log = nil
     @logger = log if log
-    @logger ||= Logger.new(STDOUT)
+    @logger ||= STDOUT
     @logger
   end
 end

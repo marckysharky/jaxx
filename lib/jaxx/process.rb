@@ -38,7 +38,7 @@ module Jaxx
       errs = errors
       
       ["Unable to process transaction", format_errors(errs)].flatten.each do |msg|
-        Jaxx.logger.warn msg
+        Jaxx.logger.write msg
       end and raise(RuntimeError) unless errs.empty?
 
       block.call(storage)

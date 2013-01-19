@@ -6,7 +6,7 @@ module Jaxx
 
     def self.execute meth, args
       parser.parse!(args)
-      options.empty? ? (STDOUT.write(parser) and exit) : Jaxx.send(meth, options)
+      options.empty? ? (Jaxx.logger.write(parser) and exit) : Jaxx.send(meth, options)
     rescue RuntimeError => exc
       exit 1
     end

@@ -16,7 +16,7 @@ module Jaxx
           directory.files.get(process.file) do |chunk, byt_remain, byt_total|
             file.write(chunk)
             complete = (((byt_total-byt_remain).to_f/byt_total) * 100)
-            Jaxx.logger.info "Saving file: %.2f percent complete.\r" % complete
+            Jaxx.logger.write "Saving file: %.2f percent complete.\r" % complete
           end
         end
       end
