@@ -16,8 +16,6 @@ module Jaxx
       described_class.new.errors.should include(:bucket => 'is required')
     end
 
-    it "raises error on local authentication, when not on AMI"
-
     it "accepts access key" do
       described_class.new('access_key' => 'abc').access_key.should == 'abc'
     end

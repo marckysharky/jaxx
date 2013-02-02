@@ -21,6 +21,9 @@ module Jaxx
   def self.logger log = nil
     @logger = log if log
     @logger ||= STDOUT
+
+    [:debug, :deprecation, :warning].each {|d| Fog::Logger[d] = @logger }
+
     @logger
   end
 end

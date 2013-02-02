@@ -7,6 +7,7 @@ require 'rspec'
 
 Jaxx.logger StringIO.new
 
+
 require_relative 'helpers/service'
 
 RSpec.configure do |c|

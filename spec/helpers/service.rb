@@ -3,9 +3,11 @@ require 'fakeweb'
 module ServiceHelper
 
   def stub_credentials_service
-    FakeWeb.register_uri :get, 
-      /#{Jaxx.environment.service_domain}#{Jaxx.environment.service_path}/, 
-      :body => '{"AccessKeyId" : "foo", "SecretAccessKey" : "bar", "Code" : "Success"}'
+    Fog::Compute::AWS.stub(:fetch_credentials).and_return({
+      :aws_access_key_id     => 'foo',
+      :aws_secret_access_key => 'bar',
+      :aws_session_token     => 'foobar'
+    })
   end
 
 end

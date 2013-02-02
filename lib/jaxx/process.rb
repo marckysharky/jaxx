@@ -28,10 +28,11 @@ module Jaxx
       return @credentials unless @credentials.nil?
 
       key, secret = access_key.to_s, access_secret.to_s
-      if (key.empty? or secret.empty?) and Jaxx.environment.ami?
-        key, secret = Jaxx.environment.credentials.values_at :access_key, :access_secret
-      end
-      @credentials = { access_key: key, access_secret: secret }
+      @credentials = if key.empty? or secret.empty?
+        Jaxx.environment.credentials
+      else
+        { :aws_access_key_id => key, :aws_secret_access_key => secret, :aws_session_token => "" }
+      end.merge(:use_iam_profile => true)
     end
 
     def start &block
@@ -57,9 +58,7 @@ module Jaxx
     private
 
     def storage
-      @storage ||= Fog::Storage::AWS.new :aws_access_key_id => credentials[:access_key], 
-        :aws_secret_access_key => credentials[:access_secret], 
-        :use_iam_profile       => Jaxx.environment.ami?
+      @storage ||= Fog::Storage::AWS.new credentials 
     end
 
     def validate_bucket
@@ -75,7 +74,7 @@ module Jaxx
     end
 
     def validate_credentials
-      "for access key and access secret required" if credentials[:access_key].empty? or credentials[:access_secret].empty?
+      "for access key and access secret required" if credentials[:aws_access_key_id].empty? or credentials[:aws_secret_access_key].empty?
     end
 
     def validate_privacy
