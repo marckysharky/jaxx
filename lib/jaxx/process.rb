@@ -31,8 +31,8 @@ module Jaxx
       @credentials = if key.empty? or secret.empty?
         Jaxx.environment.credentials
       else
-        { :aws_access_key_id => key, :aws_secret_access_key => secret, :aws_session_token => "" }
-      end.merge(:use_iam_profile => true)
+        Jaxx::Environment::DEFAULT_CREDENTIALS.dup.merge!(:aws_access_key_id => key, :aws_secret_access_key => secret)
+      end
     end
 
     def start &block
