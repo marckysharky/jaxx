@@ -44,6 +44,14 @@ Or install it yourself as:
     -h, --help
 ```
 
+### About Me
+```
+  jaxx-aboutme -h
+  jaxx-aboutme [options]
+    -d, --display
+    -h, --help
+```
+
 ## Examples
 
 ### Upload from local machine
@@ -69,6 +77,11 @@ Or install it yourself as:
 ### Upload from local machine, and make it publicly available
 ```
   jaxx-upload -b test-bucket -f vapour.txt -k MY_KEY -s MY_SECRET -p public
+```
+
+### Get information on the instance you are currently on
+```
+  jaxx-aboutme -d
 ```
 
 ## Contributing

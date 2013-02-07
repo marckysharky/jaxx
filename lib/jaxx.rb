@@ -2,9 +2,14 @@ require "jaxx/version"
 require "jaxx/environment"
 require "jaxx/upload"
 require "jaxx/download"
+require "jaxx/about_me"
 require "logger"
 
 module Jaxx
+
+  def self.aboutme args = {}
+    Jaxx::AboutMe.new.to_hash.each {|k,v| logger.write "#{k} : #{v}" }
+  end
 
   def self.upload args = {}
     Jaxx::Upload.new(args).execute
