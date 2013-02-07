@@ -8,7 +8,7 @@ require "logger"
 module Jaxx
 
   def self.aboutme args = {}
-    Jaxx::AboutMe.new.to_hash.each {|k,v| logger.write "#{k} : #{v}" }
+    Jaxx::AboutMe.new.to_hash.each {|k,v| logger.write "#{k} : #{v}\n" }
   end
 
   def self.upload args = {}
