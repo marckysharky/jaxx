@@ -7,6 +7,11 @@ module Jaxx
 
     def initialize args = {}
       @process = Process.new(args.merge('validations' => [:privacy, :file_exists]))
+      @filename = args['filename']
+    end
+
+    def filename
+      @filename || File.basename(process.file)
     end
 
     def execute

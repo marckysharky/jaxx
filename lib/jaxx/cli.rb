@@ -25,12 +25,13 @@ module Jaxx
       OptionParser.new do |o|
         o.banner = "jaxx [options]"
 
-        o.on('-b', '--bucket [BUCKET]')                 { |b| options['bucket'] = b }
-        o.on('-k', '--access-key [ACCESS_KEY]')         { |k| options['access_key'] = k }
-        o.on('-s', '--access-secret [ACCESS_SECRET]')   { |s| options['access_secret'] = s }
-        o.on('-f', '--file [FILE]')                     { |f| options['file'] = f }
-        o.on('-p', '--privacy [privacy]')               { |p| options['privacy'] = p }
-        o.on('-h', '--help')                            { o }
+        o.on('-b',  '--bucket [BUCKET]')                 { |b| options['bucket'] = b }
+        o.on('-k',  '--access-key [ACCESS_KEY]')         { |k| options['access_key'] = k }
+        o.on('-s',  '--access-secret [ACCESS_SECRET]')   { |s| options['access_secret'] = s }
+        o.on('-f',  '--file [FILE]')                     { |f| options['file'] = f }
+        o.on('-n',  '--name [name]')                     { |f| options['filename'] = f }
+        o.on('-p',  '--privacy [privacy]')               { |p| options['privacy'] = p }
+        o.on('-h',  '--help')                            { o }
       end
     end
 

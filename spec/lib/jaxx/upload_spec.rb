@@ -8,14 +8,25 @@ module Jaxx
 
       subject { described_class.new(args) }
 
-      it "sends file to storage" do
+      before :each do
         Fog.mock!
-         
+      end
+
+      it "sends file to storage" do
         File.stub(:exist?).with(args['file']).and_return(true)
         File.should_receive(:read).with(args['file']).and_return("")
         File.should_receive(:basename).with(args['file']).and_return('bar.txt')
 
         subject.execute
+      end
+
+      it "defaults filename to original filename" do
+        subject.filename.should eq('bar.txt')
+      end
+
+      it "allows assignment of filename" do
+        args['filename'] = 'foo.txt'
+        subject.filename.should eq('foo.txt')
       end
     end
 
