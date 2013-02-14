@@ -18,7 +18,7 @@ module Jaxx
       process.start do |storage|
         directory  = storage.directories.get(process.bucket)
         directory ||= storage.directories.create(:key => process.bucket, :public => process.public?)
-        directory.files.create(:key => File.basename(process.file), :body => File.read(process.file), :public => process.public?)
+        directory.files.create(:key => filename, :body => File.read(process.file), :public => process.public?)
       end
     end
 
