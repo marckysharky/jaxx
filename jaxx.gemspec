@@ -17,6 +17,7 @@ Gem::Specification.new do |gem|
 
   gem.add_dependency 'fog'
   gem.add_dependency 'json'
+  gem.add_dependency 'mime-types'
   gem.add_development_dependency  'rake'
   gem.add_development_dependency 'guard'
   gem.add_development_dependency 'guard-rspec'

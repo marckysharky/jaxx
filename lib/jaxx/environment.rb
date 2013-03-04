@@ -9,7 +9,7 @@ module Jaxx
   class Environment
 
     DEFAULT_ARGS = { 'service_timeout' => 1 }
-    DEFAULT_CREDENTIALS = { :aws_access_key_id => "", :aws_secret_access_key => "", :aws_session_token => nil, :use_iam_profile => true }
+    DEFAULT_CREDENTIALS = { :aws_access_key_id => "", :aws_secret_access_key => "", :aws_session_token => nil, :use_iam_profile => false }
 
     attr_reader :service_timeout
 
