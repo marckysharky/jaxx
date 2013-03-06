@@ -18,7 +18,7 @@ module Jaxx
     def files
       if File.directory?(process.file)
         Dir[File.join(process.file, "**", "*")]
-          .reject!{|fp| File.directory?(fp) }
+          .reject{|fp| File.directory?(fp) }
           .inject({}) {|hsh, fp| hsh[fp] = fp.gsub(process.file, ''); hsh }
       else
         { process.file => filename }
@@ -35,7 +35,7 @@ module Jaxx
             :key          => name || file, 
             :body         => File.read(file), 
             :public       => process.public?,
-            :content_type => MIME::Types.type_for(file).first
+            :content_type => MIME::Types.type_for(file).last
           )
         end
       end
