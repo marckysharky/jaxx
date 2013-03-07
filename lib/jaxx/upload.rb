@@ -7,7 +7,7 @@ module Jaxx
     attr_reader :process
 
     def initialize args = {}
-      @process = Process.new(args.merge('validations' => [:privacy, :file_exists]))
+      @process = Process.new(args.merge('validations' => [:privacy, :file_exists, :file_presence]))
       @filename = args['filename']
     end
 
