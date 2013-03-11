@@ -4,11 +4,14 @@ require 'mime/types'
 module Jaxx
   class Upload
 
-    attr_reader :process
+    DEFAULT_RETRIES = 3
+
+    attr_reader :process, :retries
 
     def initialize args = {}
-      @process = Process.new(args.merge('validations' => [:privacy, :file_exists, :file_presence]))
+      @process  = Process.new(args.merge('validations' => [:privacy, :file_exists, :file_presence]))
       @filename = args['filename']
+      @retries  = args['retries'] || DEFAULT_RETRIES
     end
 
     def filename
@@ -27,18 +30,45 @@ module Jaxx
 
     def execute
       process.start do |storage|
-        directory  = storage.directories.get(process.bucket)
-        directory ||= storage.directories.create(:key => process.bucket, :public => process.public?)
+        dir, attempts = remote_directory(storage), 0
 
         files.each do |file, name|
-          raise "File process failed: #{file}:#{name}" unless directory.files.create(
-            :key          => name || file, 
-            :body         => File.read(file), 
-            :public       => process.public?,
-            :content_type => MIME::Types.type_for(file).last
-          )
+          stat, exc = false, nil
+          attempts += 1 
+
+          begin
+            stat = create_file dir, file, name
+          rescue => ex
+            exc = ex
+          end
+
+          if !stat and attempts >= self.retries
+            raise("File process failed: #{file}:#{name} : #{exc.message rescue nil}") 
+          elsif !stat
+            redo
+          end
+
+          attempts = 0
         end
       end
+
+    end
+
+    private
+
+    def remote_directory storage 
+      dir = storage.directories.get(process.bucket)
+      dir ||= storage.directories.create(:key => process.bucket, :public => process.public?)
+      dir
+    end
+
+    def create_file dir, file, name
+      dir.files.create(
+        :key          => name || file, 
+        :body         => File.read(file), 
+        :public       => process.public?,
+        :content_type => MIME::Types.type_for(file).last
+      ) 
     end
 
   end

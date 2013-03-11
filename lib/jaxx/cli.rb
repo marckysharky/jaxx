@@ -31,6 +31,7 @@ module Jaxx
         o.on('-f',  '--file [FILE]')                     { |f| options['file'] = f }
         o.on('-n',  '--name [name]')                     { |f| options['filename'] = f }
         o.on('-p',  '--privacy [privacy]')               { |p| options['privacy'] = p }
+        o.on('-r',  '--retries [retries]')               { |r| options['retries'] = r }
         o.on('-h',  '--help')                            { o }
       end
     end

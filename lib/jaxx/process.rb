@@ -40,7 +40,7 @@ module Jaxx
       
       ["Unable to process transaction: ", format_errors(errs)].flatten.each do |msg|
         Jaxx.logger.write msg
-      end and raise(RuntimeError) unless errs.empty?
+      end and raise(RuntimeError, errs.inspect) unless errs.empty?
 
       block.call(storage)
     end
