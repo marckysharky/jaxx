@@ -28,6 +28,7 @@ Or install it yourself as:
     --access-secret
     -f, --file [FILE]
     -p, --privacy [PRIVACY]
+    -r, --retries [retries]
     -h, --help
 ```
 
@@ -41,6 +42,7 @@ Or install it yourself as:
     --access-secret
     -f, --file [FILE]
     -p, --privacy [PRIVACY]
+    -r, --retries [retries]
     -h, --help
 ```
 
@@ -54,29 +56,44 @@ Or install it yourself as:
 
 ## Examples
 
-### Upload from local machine
+### Upload file from local machine
 ```
   jaxx-upload -b test-bucket -f vapour.txt -k MY_KEY -s MY_SECRET
 ```
 
-### Download to local machine
+### Upload directory from local machine
+```
+  jaxx-upload -b test-bucket -f dir/ -k MY_KEY -s MY_SECRET
+```
+
+### Download file to local machine
 ```
   jaxx-download -b test-bucket -f vapour.txt -k MY_KEY -s MY_SECRET
 ```
 
-### Upload to S3 from AWS Instance
+### Upload file to S3 from AWS Instance
 ```
   jaxx-upload -b test-bucket -f vapour.txt
 ```
 
-### Download from S3 to current folder from AWS Instance
+### Download file from S3 to current folder from AWS Instance
 ```
   jaxx-download -b test-bucket -f vapour.txt
 ```
 
-### Upload from local machine, and make it publicly available
+### Upload file from local machine, and make it publicly available
 ```
   jaxx-upload -b test-bucket -f vapour.txt -k MY_KEY -s MY_SECRET -p public
+```
+
+### Upload directory from local machine, and make it publicly available
+```
+  jaxx-upload -b test-bucket -f dir/ -k MY_KEY -s MY_SECRET -p public
+```
+
+### Download file from S3 to current folder from AWS Instance, and retry 5 times on failure
+```
+  jaxx-download -b test-bucket -f vapour.txt -r 5
 ```
 
 ### Get information on the instance you are currently on
