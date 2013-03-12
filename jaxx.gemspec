@@ -15,7 +15,7 @@ Gem::Specification.new do |gem|
   gem.require_paths = ["lib"]
   gem.version       = Jaxx::VERSION
 
-  gem.add_dependency 'fog'
+  gem.add_dependency 'fog', '1.10.0'
   gem.add_dependency 'json'
   gem.add_dependency 'mime-types'
   gem.add_development_dependency  'rake'
