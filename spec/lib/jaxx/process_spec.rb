@@ -5,7 +5,7 @@ module Jaxx
   describe Process do
 
     it "raises RuntimeError on invalid process" do
-      -> { described_class.new.start }.should raise_error(RuntimeError)
+      Proc.new { described_class.new.start }.should raise_error(RuntimeError)
     end
 
     it "accepts bucket" do

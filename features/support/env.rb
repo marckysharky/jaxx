@@ -16,5 +16,5 @@ require File.expand_path('../../../spec/helpers/service', __FILE__)
 World(ServiceHelper)
 
 Before do
-  @aruba_timeout_seconds = 5
+  @aruba_timeout_seconds = 10
 end

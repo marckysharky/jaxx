@@ -85,7 +85,7 @@ module Jaxx
       hsh = subject.to_hash
 
       hsh.should be_kind_of(Hash)
-      hsh.keys.should == subject.class.api_attributes
+      hsh.keys.sort{|a,b| a.to_s <=> b.to_s }.should == subject.class.api_attributes.sort{|a,b| a.to_s <=> b.to_s }
     end
   end
 end

@@ -9,7 +9,8 @@ module Jaxx
         'access_key'    => 'foo', 
         'access_secret' => 'bar', 
         'file'          => File.expand_path('../bar.txt', __FILE__), 
-        'bucket'        => 'temp' 
+        'bucket'        => 'temp',
+        'retries'       => 1
       }) }
 
       subject { described_class.new(args) }
@@ -24,7 +25,7 @@ module Jaxx
       end
 
       describe "sending files" do
-        let(:files) { double('files', merge_attributes: {}, load: {}) }
+        let(:files) { double('files', :merge_attributes => {}, :load => {}) }
 
         before :each do 
           Fog.mock!
@@ -43,13 +44,13 @@ module Jaxx
         it "with retries" do
           files.should_receive(:create).exactly(subject.retries).times.and_return(false)
 
-          -> { subject.execute }.should raise_error(RuntimeError)
+          Proc.new { subject.execute }.should raise_error(RuntimeError)
         end
 
         it "with failed create" do
           files.should_receive(:create).exactly(subject.retries).times.and_raise(RuntimeError)
 
-          -> { subject.execute }.should raise_error(RuntimeError)
+          Proc.new { subject.execute }.should raise_error(RuntimeError)
         end
 
       end

@@ -7,7 +7,7 @@ require 'rspec'
 
 Jaxx.logger StringIO.new
 
-require_relative 'helpers/service'
+require './spec/helpers/service'
 
 RSpec.configure do |c|
   c.include ServiceHelper
