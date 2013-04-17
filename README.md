@@ -2,6 +2,10 @@
 
 Upload and Download files from S3.
 
+## Build Status
+
+https://travis-ci.org/marckysharky/jaxx.png
+
 ## Installation
 
 Add this line to your application's Gemfile:
