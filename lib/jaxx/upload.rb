@@ -20,9 +20,7 @@ module Jaxx
 
     def files
       if File.directory?(process.file)
-        Dir[File.join(process.file, "**", "*")]
-          .reject{|fp| File.directory?(fp) }
-          .inject({}) {|hsh, fp| hsh[fp] = fp.gsub(process.file, ''); hsh }
+        Dir[File.join(process.file, "**", "*")].reject{|fp| File.directory?(fp) }.inject({}) {|hsh, fp| hsh[fp] = fp.gsub(process.file, ''); hsh }
       else
         { process.file => filename }
       end
