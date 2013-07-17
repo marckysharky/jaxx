@@ -63,7 +63,7 @@ module Jaxx
     def create_file dir, file, name
       dir.files.create(
         :key          => name || file, 
-        :body         => File.read(file), 
+        :body         => File.open(file), 
         :public       => process.public?,
         :content_type => MIME::Types.type_for(file).last
       ) 
