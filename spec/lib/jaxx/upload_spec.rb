@@ -32,7 +32,7 @@ module Jaxx
           File.stub(:exist?).with(args['file']).and_return(true)
           File.stub(:basename).with(args['file']).and_return('bar.txt')
           Fog::Storage::AWS::Directory.any_instance.stub(:files).and_return(files)
-          File.stub(:read).with(args['file']).any_number_of_times.and_return("")
+          File.stub(:open).with(args['file']).any_number_of_times.and_return("")
         end
 
         it "to storage" do
