@@ -1,18 +1,20 @@
 require 'jaxx/process'
+require 'fileutils'
 
 module Jaxx
   class Download
 
     attr_reader :process, :filename
 
-    def initialize args = {}
+    def initialize(args = {})
       @process = Process.new(args)
     end
 
-    def files directory
+    def files(directory)
       if process.file.match(%r{/$})
         directory.files.inject({}) do |hsh, f|
-          hsh[f.key.gsub(process.file, '')] = f.key if f.key.match(process.file)
+          key = f.key.gsub(process.file, '')
+          hsh[key] = f.key if !key.empty? and f.key.match(process.file)
           hsh
         end
       else
@@ -25,9 +27,16 @@ module Jaxx
         directory = storage.directories.get(process.bucket)
 
         files(directory).each do |target, source|
+
+          # Ensure directory exists
+          dir = File.dirname(target)
+          FileUtils.mkdir_p(dir) unless File.exist?(dir)
+
+          # Create file
           File.open(target, 'wb') do |file|
             directory.files.get(source) {|chunk, byt_remain, byt_total| file.write(chunk) }
           end
+
         end
       end
     end
