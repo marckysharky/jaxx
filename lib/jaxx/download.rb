@@ -12,7 +12,8 @@ module Jaxx
     def files directory
       if process.file.match(%r{/$})
         directory.files.inject({}) do |hsh, f|
-          hsh[f.key.gsub(process.file, '')] = f.key if f.key.match(process.file)
+          key = f.key.gsub(process.file, '')
+          hsh[key] = f.key if !key.empty? and f.key.match(process.file)
           hsh
         end
       else
