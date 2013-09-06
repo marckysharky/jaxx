@@ -15,12 +15,12 @@ Gem::Specification.new do |gem|
   gem.require_paths = ["lib"]
   gem.version       = Jaxx::VERSION
 
-  gem.add_dependency 'excon', '0.20.0'
+  gem.add_dependency 'excon', '0.22.0'
   gem.add_dependency 'fog',   '1.10.0'
   gem.add_dependency 'json'
   gem.add_dependency 'mime-types'
 
-  gem.add_development_dependency  'rake'
+  gem.add_development_dependency 'rake'
   gem.add_development_dependency 'guard'
   gem.add_development_dependency 'guard-rspec'
   gem.add_development_dependency 'rspec'
